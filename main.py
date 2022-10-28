@@ -29,3 +29,23 @@ def download_music():
             new_file.write_audiofile(mp3_path)     #Renomeia o arquivo, setando o nome criado anteriormente
             os.remove(mp4_path)                    #Remove o arquivo .MP4
     print("Download Completo")
+    
+    
+if __name__ == "__main__":
+
+    while True:
+        mode = input('  [ 1 ] - BAIXAR VÍDEO\n\n  [ 2 ] - BAIXAR MÚSICA\n\nOPÇÃO: ')
+        
+        if mode == '1':
+            download_video()
+            continue
+            
+        if mode == '2':
+            download_music()
+            continue
+            
+        else:
+            print()
+            print('OPÇÃO INVÁLIDA')
+            print()
+            continue
