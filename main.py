@@ -1,3 +1,7 @@
+import sys, os
+
+sys.path.insert(1, './')
+
 from pytube import YouTube
 from pytube import Playlist
 import moviepy.editor as mp
@@ -5,9 +9,11 @@ import re
 import os
 
 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
 def download_video():
     link = input('LINK DO VÍDEO')
-    path = './videos'
+    path = os.path.join(dir_path, 'videos')
     yt = YouTube(link)
     #Fazer o dowload
     ys = yt.streams.filter(only_audio=True).first().download(path)
@@ -15,8 +21,8 @@ def download_video():
     
     
 def download_music():
-    link = input('LINK DO VÍDEO')
-    path = './musics'
+    link = input('LINK DO VÍDEO: ')
+    path = os.path.join(dir_path, 'musics')
     yt = YouTube(link)
     #Fazer o dowload
     ys = yt.streams.filter(only_audio=True).first().download(path)
@@ -32,20 +38,26 @@ def download_music():
     
     
 if __name__ == "__main__":
-
+    mode = input('  [ 1 ] - BAIXAR VÍDEO\n\n  [ 2 ] - BAIXAR MÚSICA\n\nOPÇÃO: ')
     while True:
-        mode = input('  [ 1 ] - BAIXAR VÍDEO\n\n  [ 2 ] - BAIXAR MÚSICA\n\nOPÇÃO: ')
+        print()
+
+        try:
         
-        if mode == '1':
-            download_video()
-            continue
-            
-        if mode == '2':
-            download_music()
-            continue
-            
-        else:
-            print()
-            print('OPÇÃO INVÁLIDA')
-            print()
-            continue
+            if mode == '1':
+                download_video()
+                continue
+                
+            if mode == '2':
+                download_music()
+                continue
+                    
+            else:
+                print()
+                print('OPÇÃO INVÁLIDA')
+                print()
+                mode = input('  [ 1 ] - BAIXAR VÍDEO\n\n  [ 2 ] - BAIXAR MÚSICA\n\nOPÇÃO: ')
+
+                continue
+        except Exception as e :
+            print(f"\n  == OCORREU UM ERRO == [{e}]\n")
